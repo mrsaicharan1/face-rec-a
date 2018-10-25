@@ -2,6 +2,8 @@ import cv2
 import numpy as np
 from mtcnn.mtcnn import MTCNN
 
+from model import create_model
+
 cam = cv2.VideoCapture(0)
 detector = MTCNN()
 
@@ -32,6 +34,10 @@ def process_frame(img):
         (x,y,w,h) = rect['box'][0],rect['box'][1],rect['box'][2],rect['box'][3]
         img = cv2.rectangle(img,(x, y),(x+w, y+h),(255,0,0),2)
     return img
+
+def model_processing():
+    nn4_small2_pretrained = create_model()
+    nn4_small2_pretrained.load_weights('weights/nn4.small2.v1.h5')
 
 if __name__=='__main__':
     webcam()
