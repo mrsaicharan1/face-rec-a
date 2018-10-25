@@ -16,11 +16,11 @@ class IdentityMetaData:
     def image_path(self):
         return os.path.join(self.base, self.name, self.file)
 
-    def load_metadata(path):
-        metadata = []
-        for i in os.listdir(path):
-            for f in os.listdir(os.path.join(path, i)):
-                metadata.append(IdentityMetadata(path, i, f))
-        return np.array(metadata)
+def load_metadata(path):
+    metadata = []
+    for i in os.listdir(path):
+        for f in os.listdir(os.path.join(path, i)):
+            metadata.append(IdentityMetadata(path, i, f))
+    return np.array(metadata)
 
-    metadata = load_metadata('images')
+metadata = load_metadata('images')
