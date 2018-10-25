@@ -443,7 +443,7 @@ class AlignDlib:
                                    imgDim * MINMAX_TEMPLATE[npLandmarkIndices])
         thumbnail = cv2.warpAffine(rgbImg, H, (imgDim, imgDim))
 
-return thumbnail
+        return thumbnail
         return list(map(lambda p: (p.x, p.y), points.parts()))
 
     def align(self, imgDim, rgbImg, bb=None,
@@ -487,7 +487,7 @@ return thumbnail
                                    imgDim * MINMAX_TEMPLATE[npLandmarkIndices])
         thumbnail = cv2.warpAffine(rgbImg, H, (imgDim, imgDim))
 
-return thumbnail
+        return thumbnail
         points = self.predictor(rgbImg, bb)
         return list(map(lambda p: (p.x, p.y), points.parts()))
 

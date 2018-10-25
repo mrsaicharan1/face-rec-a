@@ -20,7 +20,10 @@ def load_metadata(path):
     metadata = []
     for i in os.listdir(path):
         for f in os.listdir(os.path.join(path, i)):
-            metadata.append(IdentityMetadata(path, i, f))
+            metadata.append(IdentityMetaData(path, i, f))
     return np.array(metadata)
 
-metadata = load_metadata('images')
+def metadata():
+    metadata = load_metadata('images')
+    return metadata
+print('Metadata Created')
