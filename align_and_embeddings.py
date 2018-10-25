@@ -47,11 +47,11 @@ for i, m in enumerate(metadata):
     img = load_image(m.image_path())
     img = align_image(img)
     # scale RGB values to interval [0,1]
-    img = (img / 255.).astype(np.float32)
+    img = (img / 255.0).astype(np.float32)
     # obtain embedding vector for image
     embedded[i] = nn4_small2_pretrained.predict(np.expand_dims(img, axis=0))[0]
 
-print(embedded)
+print(embedded[0])
 
 def distance(emb1, emb2):
     return np.sum(np.square(emb1 - emb2))
@@ -59,7 +59,7 @@ def distance(emb1, emb2):
 def show_pair(idx1, idx2):
     # plt.figure(figsize=(8,3))
     # print("distance",f'Distance = {distance(embedded[idx1], embedded[idx2]):.2f})
-    print(distance(idx1,idx2))
+    print(distance(embedded[idx1],embedded[idx2]))
     # plt.subplot(121)
     cv2.imshow("1",load_image(metadata[idx1].image_path()))
     # plt.subplot(122)
@@ -67,4 +67,4 @@ def show_pair(idx1, idx2):
     # print(load_image(metadata[idx1].image_path()))
     # print(load_image(metadata[idx2].image_path()))
 
-show_pair(9, 9)
+show_pair(3, 3)
