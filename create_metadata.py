@@ -26,4 +26,5 @@ def load_metadata(path):
 def metadata():
     metadata = load_metadata('images')
     return metadata
+print(metadata())
 print('Metadata Created')

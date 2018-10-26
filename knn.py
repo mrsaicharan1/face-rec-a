@@ -1,36 +1,39 @@
-import pandas as pd
-from sklearn import preprocessing, model_selection, neighbors
-import numpy as np
+from sklearn.preprocessing import LabelEncoder
 from sklearn.neighbors import KNeighborsClassifier
-from sklearn.model_selection import train_test_split
+from sklearn.svm import LinearSVC
+from sklearn.metrics import accuracy_score
+import numpy as np
+from align_and_embeddings import embeddings
+from create_metadata import metadata
 
-X=[]
-y=[]
+embedded = embeddings()
+metadata = metadata()
+targets = np.array([m.name for m in metadata])
 
+encoder = LabelEncoder()
+encoder.fit(targets)
 
-df = pd.read_pickle('./data.pickle')
+# Numerical encoding of identities
+y = encoder.transform(targets)
 
-features = {}
-index = 0
-for k,v in df.items():
-    features[k] = v.flatten()
-    X.append(v.flatten())
-    y.append(k)
+train_idx = np.arange(metadata.shape[0]) % 2 != 0
+test_idx = np.arange(metadata.shape[0]) % 2 == 0
 
-X = np.array(X)
-y = np.array()
+# 50 train examples of 10 identities (5 examples each)
+X_train = embedded[train_idx]
+# 50 test examples of 10 identities (5 examples each)
+X_test = embedded[test_idx]
 
-print(X)
+y_train = y[train_idx]
+y_test = y[test_idx]
 
-X_train, X_test, y_train, y_test = model_selection.train_test_split(X,y,test_size=0.3)
-# print(X_train)
-# print(y_train)
-# print(X_test)
-# print(y_test)
+knn = KNeighborsClassifier(n_neighbors=1, metric='euclidean')
+svc = LinearSVC()
 
-clf =  KNeighborsClassifier()
+knn.fit(X_train, y_train)
+svc.fit(X_train, y_train)
 
-clf.fit(X_train,y_train)
+acc_knn = accuracy_score(y_test, knn.predict(X_test))
+acc_svc = accuracy_score(y_test, svc.predict(X_test))
 
-accuracy = clf.score(X_test,y_test)
-print(accuracy)
+print(f'KNN accuracy = {acc_knn}, SVM accuracy = {acc_svc}')
