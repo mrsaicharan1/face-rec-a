@@ -177,3 +177,47 @@ class AlignDlib:
         thumbnail = cv2.warpAffine(rgbImg, H, (imgDim, imgDim))
 
         return thumbnail
+    
+    def align_multiple(self, imgDim, rgbImg, bb=None,
+                      landmarks=None, landmarkIndices=INNER_EYES_AND_BOTTOM_LIP,
+                      skipMulti=False):
+
+        """:type imgDim: int
+        :param rgbImg: RGB image to process. Shape: (height, width, 3)
+        :type rgbImg: numpy.ndarray
+        :param bb: Bounding box around the face to align. \
+                   Defaults to the largest face.
+        :type bb: dlib.rectangle
+        :param landmarks: Detected landmark locations. \
+                          Landmarks found on `bb` if not provided.
+        :type landmarks: list of (x,y) tuples
+        :param landmarkIndices: The indices to transform to.
+        :type landmarkIndices: list of ints
+        :param skipMulti: Skip image if more than one face detected.
+        :type skipMulti: bool
+        :return: The aligned RGB image. Shape: (imgDim, imgDim, 3)
+        :rtype: a list of numpy.ndarray(s)
+        """
+            
+        assert imgDim is not None
+        assert rgbImg is not None
+        assert landmarkIndices is not None
+
+        thumbnails = []
+        bbs = self.getAllFaceBoundingBoxes(rgbImg)
+        if bbs is None:
+            return
+        for bb in bbs:
+            if landmarks is None:
+                landmarks = self.findLandmarks(rgbImg, bb)
+
+            npLandmarks = np.float32(landmarks)
+            npLandmarkIndices = np.array(landmarkIndices)
+
+            H = cv2.getAffineTransform(npLandmarks[npLandmarkIndices],
+                                       imgDim * MINMAX_TEMPLATE[npLandmarkIndices])
+            thumbnail = cv2.warpAffine(rgbImg, H, (imgDim, imgDim))
+            thumbnails.append(thumbnail)
+
+        return thumbnails
+
