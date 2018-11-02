@@ -1,16 +1,37 @@
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 import pprint
+import datetime
 
-def mark_attendance():
+today = datetime.date.today()
+formatted_date = today.strftime("%m-%d-%Y")
+print(formatted_date)
+def mark_attendance(students):
     scope = ['https://spreadsheets.google.com/feeds','https://www.googleapis.com/auth/drive']
     creds = ServiceAccountCredentials.from_json_keyfile_name('client_secret.json', scope)
     client = gspread.authorize(creds)
-    
-    sheet = client.open('Attendance').sheet1
-    
+
+    sheet = client.open('face-attendance').sheet1
+
     result = sheet.get_all_records()
+    # before attendance
     pp = pprint.PrettyPrinter()
     pp.pprint(result)
-    
-mark_attendance()
+    # date-> col
+    date_col_list = sheet.findall(formatted_date)
+    date_col = date_col_list[0].col
+    print(date_col)
+
+    #roll_no_list ->row
+    for student in students:
+        cell_list = sheet.findall(student)
+        for cell in cell_list:
+            roll_number_row = cell.row
+            sheet.update_cell(roll_number_row,date_col,'P')
+
+    #Show sheet
+    result = sheet.get_all_records()
+    pp.pprint(result)
+
+mark_attendance(['IIT2016075','BIM2016002','IHM2016005'])
+#
