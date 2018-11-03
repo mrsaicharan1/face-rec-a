@@ -2,10 +2,16 @@ import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 import pprint
 import datetime
-
+import argparse
+import pickle
 today = datetime.date.today()
 formatted_date = today.strftime("%m-%d-%Y")
 print(formatted_date)
+
+present_students = open('present.pickle','rb')
+students = pickle.load(present_students)
+present_students.close()
+
 def mark_attendance(students):
     scope = ['https://spreadsheets.google.com/feeds','https://www.googleapis.com/auth/drive']
     creds = ServiceAccountCredentials.from_json_keyfile_name('client_secret.json', scope)
@@ -33,5 +39,5 @@ def mark_attendance(students):
     result = sheet.get_all_records()
     pp.pprint(result)
 
-mark_attendance(['IIT2016075','BIM2016002','IHM2016005'])
+mark_attendance(students)
 #

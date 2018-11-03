@@ -34,15 +34,15 @@ class IdentityMetadata():
         return self.image_path()
 
     def image_path(self):
-        return os.path.join(self.base, self.name, self.file) 
-    
+        return os.path.join(self.base, self.name, self.file)
+
 def load_metadata(path):
     metadata = []
     for i in os.listdir(path):
         for f in os.listdir(os.path.join(path, i)):
             # Check file extension. Allow only jpg/jpeg' files.
             ext = os.path.splitext(f)[1]
-            if ext == '.jpg' or ext == '.jpeg':
+            if ext == '.jpg' or ext == '.jpeg' or ext=='.png':
                 metadata.append(IdentityMetadata(path, i, f))
     return np.array(metadata)
 
@@ -60,18 +60,18 @@ import matplotlib.patches as patches
 
 from align import AlignDlib
 
-get_ipython().run_line_magic('matplotlib', 'inline')
+#get_ipython().run_line_magic('matplotlib', 'inline')
 
 def load_image(path):
-    img = cv2.imread(path, 1)
-    return img[...,::-1]
+    img = cv2.imread(path, 1) #BGR
+    return img[...,::-1] #RGB
 
 
 alignment = AlignDlib('shape_predictor_68_face_landmarks.dat')
 
 #combined transformation
 def align_image(img):
-    return alignment.align(96, img, alignment.getLargestFaceBoundingBox(img), 
+    return alignment.align(96, img, alignment.getLargestFaceBoundingBox(img),
                            landmarkIndices=AlignDlib.OUTER_EYES_AND_NOSE)
 
 
@@ -79,6 +79,7 @@ def align_image(img):
 
 
 embedded = np.zeros((metadata.shape[0], 128))
+
 real_name = {}
 
 for i, m in enumerate(metadata):
@@ -90,6 +91,8 @@ for i, m in enumerate(metadata):
         # obtain embedding vector for image
         embedded[i] = nn4_small2_pretrained.predict(np.expand_dims(img, axis=0))[0]
         real_name[os.path.dirname(m.image_path()[7:])] = embedded[i]
+        print(i)
+        print(m.name)
 
 def real_names():
     return real_name
@@ -111,10 +114,10 @@ def show_pair(idx1, idx2):
     plt.subplot(121)
     plt.imshow(load_image(metadata[idx1].image_path()))
     plt.subplot(122)
-    plt.imshow(load_image(metadata[idx2].image_path()));    
+    plt.imshow(load_image(metadata[idx2].image_path()));
 
-show_pair(43, 42)
-show_pair(43, 18)
+show_pair(78, 76)
+show_pair(78, 17)
 
 
 # In[ ]:
@@ -137,7 +140,7 @@ def recognize(embedded):
         print(min_dist)
         return _id
 
-    
+
 
 
 # In[ ]:
@@ -154,7 +157,7 @@ for i in range(num - 1):
     for j in range(1, num):
         distances.append(distance(embedded[i], embedded[j]))
         identical.append(1 if metadata[i].name == metadata[j].name else 0)
-        
+
 distances = np.array(distances)
 identical = np.array(identical)
 
@@ -201,7 +204,7 @@ cap = cv2.VideoCapture(0)
 
 
 # def webcam_recognize():
-#     while(True): 
+#     while(True):
 #         ret, frame = cap.read()
 #         cv2.imwrite('temp.jpg',frame)
 #         cv2.waitKey(20)
@@ -211,14 +214,16 @@ cap = cv2.VideoCapture(0)
 #             print(name)
 #         if cv2.waitKey(1) & 0xFF == ord('q'):
 #             break
-        
+
 #     cap.release()
 #     cv2.destroyAllWindows()
 
 
-    
-# webcam_recognize()
+   # webcam_recognize()
 # recognize_image('.jpg')
+
+#students list for gspread updations
+students = []
 
 from mtcnn.mtcnn import MTCNN
 def multiple_recognize():
@@ -236,16 +241,19 @@ def multiple_recognize():
                 if 'temp.jpg' is not None:
                     name = recognize_image('temp.jpg')
                     cv2.rectangle(frame,(x,y),(x+w,y+h),(0,0,255),5)
-                    cv2.putText(frame, name , (x, y), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 255, 0), 2, cv2.LINE_AA)
                     cv2.imshow('Faces',frame)
-                    
-                    
-                      
+                    if name!=None and name not in students:
+                        students.append(name)
+        stud_names = open('present.pickle','wb')
+        pickle.dump(students, stud_names)
+        stud_names.close()
+
+
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
     cap.release()
     cv2.destroyAllWindows()
-                
+
 #                 cv2.imshow('parts',image[y:y+h,x:x+w])
 
 multiple_recognize()
@@ -254,21 +262,15 @@ multiple_recognize()
 # In[ ]:
 
 
-import gspread
-from oauth2client.service_account import ServiceAccountCredentials
+import datetime
 
+today = datetime.date.today()
+formatted_date = today.strftime("%m-%d-%Y")
+print(formatted_date)
 
-def mark_attendance():
-    scope = ['https://spreadsheets.google.com/feeds','https://www.googleapis.com/auth/drive']
-    creds = ServiceAccountCredentials.from_json_keyfile_name('client_secret.json', scope)
-    client = gspread.authorize(creds)
-    
-    sheet = client.open('Attendance').sheet1
-    
-    attendance = sheet.get_all_records()
-    print(attendance)
-    
-mark_attendance()
+from mark_attendance import mark_attendance
+
+mark_attendance(students)
 
 
 # In[ ]:
@@ -278,7 +280,3 @@ mark_attendance()
 
 
 # In[ ]:
-
-
-
-
