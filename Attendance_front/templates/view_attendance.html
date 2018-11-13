@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% set courses=courses %}
+{% set x=x %}
+{% set user=user %}
+{% block view %}
+
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="job-box">
+
+          <div class="signup-label">
+            
+          
+              <div class="row">
+                  
+                <div class="col-md-10">
+                  <h3 class="btn job-header-text" id="id_class">ID : {{user}} </h3>
+                </div>
+              </div>
+            </div>
+        <div class="signup-label">
+          <div class="row">
+            
+            <div class="col-md-10">
+              <h3 class="btn job-header-text" id="VIEW">View Attendance</h3>
+            </div>
+          </div>
+        </div>
+        <div class="dash">
+          <div class="row">
+            <div class="col-md-10">
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+<div id="view1">
+
+    <a  class="btn boxed trigger_btn job-header-text" id ="google_sheet" href="" class="button">Attendance</a>
+     
+<h4 class="boxed text"> Click the button to view attendance.</h4>
+</div>
+
+
+{% endblock %}
+
+
+
+
+
+
+
+
