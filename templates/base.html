@@ -1,0 +1,179 @@
+<html>
+<head>
+  <title>Attendance Manager System</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
+  <script defer src="https://use.fontawesome.com/releases/v5.1.1/js/all.js" integrity="sha384-BtvRZcyfv4r0x/phJt9Y9HhnN5ur1Z+kZbKVgzVBAlQZX4jvAuImlIz+bG7TS00a" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+  <link href="https://fonts.googleapis.com/css?family=Quattrocento+Sans|Source+Sans+Pro:300" rel="stylesheet">
+  <script src="{{ url_for('static', filename='js/index.js') }}">
+
+  
+  
+  </script>
+  <script>
+
+
+
+
+
+ function myFunction()
+  {
+    selected_course = '{{courses[0]}}';
+    link = '{{link}}';
+   course_value=selected_course;
+document.getElementById("selected").innerHTML=selected_course;
+console.log("gg");
+console.log(link);
+console.log(selected_course);
+       selected_course = course_value;
+       document.getElementById("selected").innerHTML=selected_course;
+
+       $.getJSON("/getlink", {"selected_course": selected_course},function(data,status,xhr)
+
+       {
+         console.log("tt")
+         console.log(data.link);
+         link=data.link;
+         
+         link = "https://docs.google.com/spreadsheets/d/1xlgbxidPaQ20MmZ9rElBlGG2whKbBQa9G8-J5DzCvIo/edit?usp=sharing";
+         document.getElementById("google_sheet").setAttribute("href",link);
+
+       }
+       );
+
+ //      $('#start').click(function(){
+
+
+//console.log("fff");
+
+//console.log(selected_course + " start")
+//$.post( "/start_attendance",{"x":"start","selected_course": selected_course}, function( data ) {
+  //console.log(data);
+
+
+//});
+//}
+//);
+
+
+
+
+
+
+}
+
+    
+  function myFunction1(){
+
+
+console.log("fff");
+
+console.log(selected_course + " start")
+$.post( "/start_attendance",{"x":"start","selected_course": selected_course}, function( data ) {
+  console.log(data);
+});
+} 
+
+
+  $('#settings_job_vac').modal('handleUpdate');
+ 
+ 
+  </script>
+</head>
+<body  onload="myFunction()">
+
+  <div class="container-fluid" style="width:100%;">
+    <nav class="navbar navbar-expand-lg navbar-light">
+      <a class="navbar-brand" href="#" id="nameplate_p">
+        <div id="nameplate_box"><b> AMS </b></div>
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav mr-auto">
+           <li class="nav-item active">
+              <h1 id="h1_id">
+                  {{x}} Login
+                  </h1>
+        </li>
+      </ul>
+      <span class="navbar-text">
+        <ul class="navbar-nav mr-auto">
+
+          <li class="nav-item">
+            <a class="nav-link nav-elements" href="#" style="font-weight: 300; color: black;margin-top: 0.4em;"> Course : <span id="selected"></span></a>
+          </li>
+          <li class="col-md-5 nav-item">
+            <a href="#" id="setta" data-toggle="modal" data-target="#settings_job_vac"><i class="fas fa-cog" id="settings"></i></a>
+          </li>
+          <li class="nav-item dropdown">
+
+            <a class="nav-link dropdown-toggle nav-elements" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="font-weight: 300; color: black;">
+              <img src="{{url_for('static',filename='imgs/profile.jpg')}}" class="profile-img">
+            </a>
+            <div class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdownMenuLink">
+
+              <a class="dropdown-item" href="{{url_for('logout')}}">LogOut</a>
+            </div>
+          </li>
+        </ul>
+      </span>
+    </div>
+  </nav>
+  <div class="boxed">
+
+    <div class="modal fade"  id="settings_job_vac" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content"  id="modall">
+          <div class="modal-header">
+            <h5 class="modal-title" id="setting-title">Course Selection</h5>
+            <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button> -->
+        </div>
+
+        <div class="modal-body">
+
+          <div class="sort-list" id="sort-list">
+            <form >
+              <ul class="sort-type" id="course_list">
+                
+                {% for Course in courses %}
+                    
+                     
+
+                  <li class="btn sort-type-list"  >{{Course}}</li><br>
+                  
+                {% endfor %}
+              </ul>
+            </form>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
+          <button type="submit" class="btn btn-primary" id="ok-btn">OK</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  {% block start %}
+  {% endblock %}
+
+{% block view %}
+{% endblock %}
+
+
+
+</div>
+</div>
+</body>
+</html>

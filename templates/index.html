@@ -1,0 +1,150 @@
+<html>
+   <head>
+      <title>Attendance Manager System</title>
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
+      <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
+      <script defer src="https://use.fontawesome.com/releases/v5.1.1/js/all.js" integrity="sha384-BtvRZcyfv4r0x/phJt9Y9HhnN5ur1Z+kZbKVgzVBAlQZX4jvAuImlIz+bG7TS00a" crossorigin="anonymous"></script>
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous">
+      <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+      <link href="https://fonts.googleapis.com/css?family=Quattrocento+Sans|Source+Sans+Pro:300" rel="stylesheet">
+      <script src="{{ url_for('static', filename='js/index.js') }}"></script>
+      <script>
+        $('#employee-modal, #employer-modal').modal('handleUpdate');
+      </script>
+   </head>
+   <body>
+
+
+      {% if message == "wrong" %}
+           
+      <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="alert_modal">
+                  <div class="modal-dialog modal-lg">
+                              <div class="modal-content">
+                                          <div class="modal-header" id="header">
+                                            
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                              <span aria-hidden="true">&times;</span>
+                                            </button>
+                                          </div>
+                                          <div class="modal-body" id="header_1">
+                                            <h5 >Please Enter Valid Credentails</h5>
+                                          </div>
+                                          
+                                        </div>
+                  </div>
+                </div>
+                
+            
+     
+      {% endif %}
+      <div class="container-fluid" id="main" style="width: 95%;">
+         <nav class="navbar navbar-expand-lg navbar-light">
+            <a class="navbar-brand" href="#" id="nameplate">
+               <div id="nameplate_box"><b> AMS </b></div>
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarText">
+               <ul class="navbar-nav mr-auto">
+                  <!-- <li class="nav-item active">
+                     <a class="nav-link" href="#">AXIZOUN</a>
+                     </li> -->
+               </ul>
+               <span class="navbar-text">
+                  <ul class="navbar-nav mr-auto">
+                     <li class="nav-item">
+                        <a class="nav-link nav-elements" href="#" style="font-weight: 300; color: black;">Team</a>
+                     </li>
+                  </ul>
+               </span>
+            </div>
+         </nav>
+         <div class="container">
+            <div class="row">
+               <div class="col-lg-6 col-md-6"></div>
+               <div class="col-lg-6 col-md-6" class="signup-form-box">
+                  <div class="form-box" id="signup-box">
+                     <div class="signup-label">
+                        <h1 class="form-header-text">LogIn</h1>
+                     </div>
+                     <div class="option-selector">
+                        <div class="row">
+                           <div class="col-lg-6 col-md-6 left-option">
+                              <h3 style="font-size: 25px;" id="employee">Student</h3>
+                           </div>
+                           <div class="col-lg-6 col-md-6 right-option">
+                              <h3 style="font-size: 25px;" id="employer">Professor</h3>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="form-content">
+                        <div class="container">
+                           <form id="employee-form"  method=POST action="{{ url_for('student_login') }}">
+                              <div class="row">
+                                 <div class="col-md-12">
+                                    <div class="form-group">
+
+                                       <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name = "usernameS" placeholder="Enter Enrollment Number">
+                                    </div>
+                                 </div>
+                              </div>
+                              <div class="row">
+                                 <div class="col-md-12">
+                                    <div class="form-group">
+
+                                       <input type="password" class="form-control" id="exampleInputPassword1" name = "pwdS" placeholder="Password">
+                                    </div>
+                                 </div>
+                              </div>
+                                 
+                              <div class="row">
+                                 <div class="col-md-6">
+                                    <!-- <button type="submit" class="btn btn-primary mybutt">SIGN UP</button> -->
+                                    <button  class="btn btn-primary mybutt" >LOGIN</button>
+                                 </div>
+                                 
+                              </div>
+                              
+                        </div>
+                        </form>
+                        <form id="employer-form"   method=POST action="{{ url_for('faculty_login') }}">
+                           <div class="row">
+                              <div class="col-md-12">
+                                 <div class="form-group">
+
+                                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name = "usernameF" placeholder="User Name">
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="row">
+                              <div class="col-md-12">
+                                 <div class="form-group">
+
+                                    <input type="password" class="form-control" id="exampleInputPassword1" name = "pwdF" placeholder="Password">
+                                 </div>
+                              </div>
+                           </div>
+                           
+                           
+                           <div class="row">
+                              <div class="col-md-6">
+                                 <button type="submit" class="btn btn-primary mybutt">LOGIN</button>
+                              </div>
+                              
+                           </div>
+                          
+                     </div>
+                     </form>
+                  </div>
+                 
+               </div>
+            </div>
+         </div>
+      </div>
+      </div>
+      </div>
+   </body>
+</html>

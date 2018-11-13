@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% set courses = courses %}
+{% set x=x %}
+{% set user=user %}
+
+
+
+{% block view %}
+
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="job-box">
+
+          <div class="signup-label">
+
+
+              <div class="row">
+
+                <div class="col-md-10">
+                  <h3 class="btn job-header-text" id="id_class">ID : {{user}} </h3>
+                </div>
+              </div>
+            </div>
+        <div class="signup-label">
+
+
+          <div class="row">
+
+            <div class="col-md-10">
+              <h3 class="btn job-header-text" id="MARK">Mark Attendance</h3>
+            </div>
+          </div>
+        </div>
+        <div class="signup-label">
+          <div class="row">
+            <div class="col-md-10">
+              <h3 class="btn job-header-text"id = "CHANGE">View/Edit Attendance</h3>
+            </div>
+          </div>
+        </div>
+        <div class="dash">
+          <div class="row">
+            <div class="col-md-10">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id = "mark">
+        <button class="btn boxed trigger_btn job-header-text"  id="start" onclick = "myFunction1()" > Start</button>
+        <button class="btn boxed trigger_btn job-header-text" id ="stop" > Stop</button>
+        <br>
+        <h4 class="boxed text"> Mark the attendance using the buttons.</h4>
+  </div>
+
+  <div id = "view">
+      <a  class="btn boxed trigger_btn job-header-text" id ="google_sheet" class="button" href="">Attendance</a>
+
+        <br>
+        <h4 class="boxed text"> Click the button to view/change attendance.</h4>
+  </div>
+
+
+
+
+
+{% endblock %}
