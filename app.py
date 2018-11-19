@@ -16,6 +16,11 @@ app = Flask(__name__)
 
 app.config['MONGO_DBNAME'] = 'sec_b'
 app.config['MONGO_URI'] = 'mongodb://attendance:attendance123@ds041178.mlab.com:41178/sec_b'
+# mongodb://<dbuser>:<dbpassword>@ds041178.mlab.com:41178/sec_b
+
+# app.config['MONGO_DBNAME'] = 'sem5_db'
+# app.config['MONGO_URI'] = 'mongodb://localhost:27017/sem5_db'
+
 
 mongo = PyMongo(app)
 bcrypt = Bcrypt(app)
@@ -31,6 +36,9 @@ def index_main():
 
 @app.route('/index')
 def index():
+
+    # session.pop('usernameF', None)
+    # session.pop('usernameS', None)
 
     if 'usernameF' in session:
 
@@ -308,7 +316,7 @@ def start_attendance():
         print(x+"iiiiiii")
         import subprocess as s
         
-        s.call("python3 face-rec-notebook.py --course " +selected,shell=True)
+        s.call("python face-rec-notebook.py --course " +selected,shell=True)
         return "start"
 
 

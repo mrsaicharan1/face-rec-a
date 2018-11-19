@@ -7,6 +7,23 @@
 
 {% block view %}
 
+<div id ="Modal1" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="alert_modal">
+    <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                            <div class="modal-header" id="header">
+                              
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body" id="header_1">
+                              <h5 >Attendance Management System Started Sucessfully</h5>
+                            </div>
+                            
+                          </div>
+    </div>
+  </div>
+  
 
   <div class="row">
     <div class="col-md-12">
@@ -50,10 +67,11 @@
   </div>
 
   <div id = "mark">
-        <button class="btn boxed trigger_btn job-header-text"  id="start" onclick = "myFunction1()" > Start</button>
-        <button class="btn boxed trigger_btn job-header-text" id ="stop" > Stop</button>
+                            
+        <button class="btn boxed trigger_btn job-header-text"  id="start" onclick = "myFunction1()" data-target="#Modal1" data-toggle="modal" > Start</button>
+        
         <br>
-        <h4 class="boxed text"> Mark the attendance using the buttons.</h4>
+        <h4 class="boxed text"> Mark the attendance using the button.</h4>
   </div>
 
   <div id = "view">

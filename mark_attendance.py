@@ -13,12 +13,14 @@ present_students = open('present.pickle','rb')
 students = pickle.load(present_students)
 present_students.close()
 
+#,'https://www.googleapis.com/auth/drive'
 
 def mark_attendance(students,course):
     scope = ['https://spreadsheets.google.com/feeds','https://www.googleapis.com/auth/drive']
     creds = ServiceAccountCredentials.from_json_keyfile_name('client_secret.json', scope)
     client = gspread.authorize(creds)
     print(course +"ggggggg")
+    
     sheet = client.open(course).sheet1
 
 

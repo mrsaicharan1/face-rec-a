@@ -1,36 +1,14 @@
-#!/usr/bin/env python
+
 # coding: utf-8
 
 # In[1]:
 
 
-from flask import Flask,render_template,session,url_for,request,redirect
-from flask_pymongo import PyMongo
-from flask_bcrypt import Bcrypt
-from flask import jsonify,json
-import os
-import gspread
-
-from oauth2client.service_account import ServiceAccountCredentials
-import pprint
-import datetime
-import argparse
-import pickle
 from model import create_model
-
-import pprint
-import datetime
-import pickle
-
-app1 = Flask(__name__)
 
 nn4_small2_pretrained = create_model()
 
-# arguments 
-parser = argparse.ArgumentParser()
-parser.add_argument("-c","--course",help="Course ID for attendance")
-args = vars(parser.parse_args())
-print(args['course'])
+
 # In[2]:
 
 
@@ -56,8 +34,8 @@ class IdentityMetadata():
         return self.image_path()
 
     def image_path(self):
-        return os.path.join(self.base, self.name, self.file)
-
+        return os.path.join(self.base, self.name, self.file) 
+    
 def load_metadata(path):
     metadata = []
     for i in os.listdir(path):
@@ -82,7 +60,7 @@ import matplotlib.patches as patches
 
 from align import AlignDlib
 
-#get_ipython().run_line_magic('matplotlib', 'inline')
+# get_ipython().run_line_magic('matplotlib', 'inline')
 
 def load_image(path):
     img = cv2.imread(path, 1) #BGR
@@ -93,58 +71,65 @@ alignment = AlignDlib('shape_predictor_68_face_landmarks.dat')
 
 #combined transformation
 def align_image(img):
-    return alignment.align(96, img, alignment.getLargestFaceBoundingBox(img),
+    return alignment.align(96, img, alignment.getLargestFaceBoundingBox(img), 
                            landmarkIndices=AlignDlib.OUTER_EYES_AND_NOSE)
 
 
-# In[ ]:
+# In[5]:
 
 
-embedded = np.zeros((metadata.shape[0], 128))
+import pickle
+embedded = np.zeros((metadata.shape[0], 128)) 
 
 real_name = {}
 
+embeddings = open('embeddings.pkl','rb')
+embedded = pickle.load(embeddings)
+embeddings.close()
+
 for i, m in enumerate(metadata):
-    img = load_image(m.image_path())
-    img = align_image(img)
+#     img = load_image(m.image_path())
+#     img = align_image(img)
     # scale RGB values to interval [0,1]
-    if img is not None:
-        img = (img / 255.).astype(np.float32)
+#     if img is not None:
+#         img = (img / 255.).astype(np.float32)
         # obtain embedding vector for image
-        embedded[i] = nn4_small2_pretrained.predict(np.expand_dims(img, axis=0))[0]
-        real_name[os.path.dirname(m.image_path()[7:])] = embedded[i]
-        print(i)
-        print(m.name)
+#         embedded[i] = nn4_small2_pretrained.predict(np.expand_dims(img, axis=0))[0]
+    real_name[os.path.dirname(m.image_path()[7:])] = embedded[i]
+    print(i)
+    print(m.name)
+        
+# embeddings = open('embeddings.pkl','wb')
+# pickle.dump(embedded,embeddings)
+# embeddings.close()
 
 def real_names():
     return real_name
 
 
-# In[ ]:
+# In[6]:
 
 
 def distance(emb1, emb2):
     return np.sum(np.square(emb1 - emb2))
 
 
-# In[ ]:
+# In[7]:
 
 
 def show_pair(idx1, idx2):
-    '''
     plt.figure(figsize=(6,3))
     plt.suptitle(f'Distance = {distance(embedded[idx1], embedded[idx2]):.2f}')
     plt.subplot(121)
     plt.imshow(load_image(metadata[idx1].image_path()))
     plt.subplot(122)
-    plt.imshow(load_image(metadata[idx2].image_path()))
-    '''
+    plt.imshow(load_image(metadata[idx2].image_path()));    
 
 show_pair(78, 76)
 show_pair(78, 17)
 
 
-# In[ ]:
+# In[8]:
 
 
 def recognize(embedded):
@@ -164,10 +149,10 @@ def recognize(embedded):
         print(min_dist)
         return _id
 
+    
 
 
-
-# In[ ]:
+# In[9]:
 
 
 from sklearn.metrics import f1_score, accuracy_score
@@ -181,7 +166,7 @@ for i in range(num - 1):
     for j in range(1, num):
         distances.append(distance(embedded[i], embedded[j]))
         identical.append(1 if metadata[i].name == metadata[j].name else 0)
-
+        
 distances = np.array(distances)
 identical = np.array(identical)
 
@@ -197,16 +182,15 @@ opt_tau = thresholds[opt_idx]
 opt_acc = accuracy_score(identical, distances < opt_tau)
 
 # Plot F1 score and accuracy as function of distance threshold
-'''
-plt.plot(thresholds, f1_scores, label='F1 score')
-plt.plot(thresholds, acc_scores, label='Accuracy')
+plt.plot(thresholds, f1_scores, label='F1 score');
+plt.plot(thresholds, acc_scores, label='Accuracy');
 plt.axvline(x=opt_tau, linestyle='--', lw=1, c='lightgrey', label='Threshold')
-plt.title(f'Accuracy at threshold {opt_tau:.2f} = {opt_acc:.3f}')
+plt.title(f'Accuracy at threshold {opt_tau:.2f} = {opt_acc:.3f}');
 plt.xlabel('Distance threshold')
-plt.legend()
-'''
+plt.legend();
 
-# In[ ]:
+
+# In[10]:
 
 
 embedded = np.zeros((1, 128))
@@ -225,11 +209,11 @@ def recognize_image(image_path):
     return None
 
 
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(1)
 
 
 # def webcam_recognize():
-#     while(True):
+#     while(True): 
 #         ret, frame = cap.read()
 #         cv2.imwrite('temp.jpg',frame)
 #         cv2.waitKey(20)
@@ -239,7 +223,7 @@ cap = cv2.VideoCapture(0)
 #             print(name)
 #         if cv2.waitKey(1) & 0xFF == ord('q'):
 #             break
-
+        
 #     cap.release()
 #     cv2.destroyAllWindows()
 
@@ -251,6 +235,7 @@ cap = cv2.VideoCapture(0)
 students = []
 
 from mtcnn.mtcnn import MTCNN
+import pickle
 def multiple_recognize():
     while(True):
         ret,frame = cap.read()
@@ -267,47 +252,36 @@ def multiple_recognize():
                     name = recognize_image('temp.jpg')
                     cv2.rectangle(frame,(x,y),(x+w,y+h),(0,0,255),5)
                     cv2.imshow('Faces',frame)
-                    if name!=None and name not in students:
+                    if name!=None and name not in students:    
                         students.append(name)
         stud_names = open('present.pickle','wb')
-        pickle.dump(students, stud_names)
+        pickle.dump(students, stud_names,protocol=2)
         stud_names.close()
-
-
+                    
+                      
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
-
     cap.release()
     cv2.destroyAllWindows()
-
+                
 #                 cv2.imshow('parts',image[y:y+h,x:x+w])
 
 multiple_recognize()
 
 
-# In[ ]:
+# In[11]:
 
 
 import datetime
+import os
+import subprocess as s
 
-today = datetime.date.today()
-formatted_date = today.strftime("%m-%d-%Y")
-print(formatted_date)
+s.call("python mark_attendance.py", shell=True)
+# today = datetime.date.today()
+# formatted_date = today.strftime("%m-%d-%Y")
+# print(formatted_date)
 
-from mark_attendance import mark_attendance
+# from mark_attendance import mark_attendance
 
-mark_attendance(students,args['course'])
+# mark_attendance(students)
 
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-'''
-if __name__ != '__main__':
-    app1.secret_key='secret'
-    app1.run(debug=True)
-'''

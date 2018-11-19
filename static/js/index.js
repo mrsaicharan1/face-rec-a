@@ -16,7 +16,7 @@ $(document).ready(function() {
   $("#view1").show(500);
   $("#VIEW").addClass('life');
   $('.alert').alert('close');
-  $('#alert_modal').modal('show')
+  $('#alert_modal').modal('show');console.log("   i1");
   
 
 

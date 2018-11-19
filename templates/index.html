@@ -11,13 +11,17 @@
       <link href="https://fonts.googleapis.com/css?family=Quattrocento+Sans|Source+Sans+Pro:300" rel="stylesheet">
       <script src="{{ url_for('static', filename='js/index.js') }}"></script>
       <script>
+
         $('#employee-modal, #employer-modal').modal('handleUpdate');
+
       </script>
    </head>
-   <body>
+   <body >
 
 
       {% if message == "wrong" %}
+
+           
            
       <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="alert_modal">
                   <div class="modal-dialog modal-lg">
@@ -32,14 +36,15 @@
                                             <h5 >Please Enter Valid Credentails</h5>
                                           </div>
                                           
-                                        </div>
+                               </div>
                   </div>
-                </div>
+      </div>
                 
-            
+      
      
       {% endif %}
       <div class="container-fluid" id="main" style="width: 95%;">
+
          <nav class="navbar navbar-expand-lg navbar-light">
             <a class="navbar-brand" href="#" id="nameplate">
                <div id="nameplate_box"><b> AMS </b></div>
@@ -103,7 +108,7 @@
                               <div class="row">
                                  <div class="col-md-6">
                                     <!-- <button type="submit" class="btn btn-primary mybutt">SIGN UP</button> -->
-                                    <button  class="btn btn-primary mybutt" >LOGIN</button>
+                                    <button  class="btn btn-primary mybutt"  >LOGIN</button>
                                  </div>
                                  
                               </div>
