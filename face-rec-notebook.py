@@ -3,8 +3,24 @@
 
 # In[1]:
 
+from flask import Flask,render_template,session,url_for,request,redirect
+from flask_pymongo import PyMongo
+from flask_bcrypt import Bcrypt
+from flask import jsonify,json
+import os
+import gspread
 
+from oauth2client.service_account import ServiceAccountCredentials
+import pprint
+import datetime
+import argparse
+import pickle
 from model import create_model
+
+import pprint
+import datetime
+
+app1 = Flask(__name__)
 
 nn4_small2_pretrained = create_model()
 
@@ -13,7 +29,11 @@ nn4_small2_pretrained = create_model()
 
 
 nn4_small2_pretrained.load_weights('weights/nn4.small2.v1.h5')
-
+# arguments 
+parser = argparse.ArgumentParser()
+parser.add_argument("-c","--course",help="Course ID for attendance")
+args = vars(parser.parse_args())
+print(args['course'])
 
 # In[3]:
 
@@ -272,11 +292,11 @@ multiple_recognize()
 # In[11]:
 
 
-import datetime
-import os
-import subprocess as s
+# import datetime
+# import os
+# import subprocess as s
 
-s.call("python mark_attendance.py", shell=True)
+# s.call("python mark_attendance.py", shell=True)
 # today = datetime.date.today()
 # formatted_date = today.strftime("%m-%d-%Y")
 # print(formatted_date)
@@ -284,4 +304,13 @@ s.call("python mark_attendance.py", shell=True)
 # from mark_attendance import mark_attendance
 
 # mark_attendance(students)
+import datetime
+
+today = datetime.date.today()
+formatted_date = today.strftime("%m-%d-%Y")
+print(formatted_date)
+
+from mark_attendance import mark_attendance
+
+mark_attendance(students,args['course'])
 
