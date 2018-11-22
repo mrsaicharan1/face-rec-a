@@ -114,7 +114,7 @@ $ python3 app.py
 
 > Or Contributors/People
 
-| <a href="http://freeflo.tech" target="_blank">**FVCproductions**</a> | <a href="http://freeflo.tech" target="_blank">**Face-Attendance**</a> | <a href="http://freeflo.tech" target="_blank">**Freeflo**</a> |
+| <a href="" target="_blank">**Divija Palleti**</a> | <a href="" target="_blank">**Saicharan Reddy**</a> | <a href="http://freeflo.tech" target="_blank">**Sindhu Bachu**</a> |
 | :---: |:---:| :---:|
 | [![Divija Palleti](https://avatars1.githubusercontent.com/u/25845059?s=200&v=3)](http://fvcproductions.com)    | [![Saicharan Reddy](https://avatars3.githubusercontent.com/u/25197147?s=200&v=3)](http://fvcproductions.com) | [![Siddharth Simharaju](https://avatars1.githubusercontent.com/u/33068322?s=200&v=3)](http://fvcproductions.com)  |
 | <a href="http://github.com/fvcproductions" target="_blank">`github.com/fvcproductions`</a> | <a href="http://github.com/fvcproductions" target="_blank">`github.com/fvcproductions`</a> | <a href="http://github.com/fvcproductions" target="_blank">`github.com/fvcproductions`</a> |
