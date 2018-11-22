@@ -18,7 +18,7 @@ Technologies include:
 - Tensorflow
 - Flask
 - MongoDB
-## Table of Contents (Optional)
+## Table of Contents 
 
 > If you're `README` has a lot of info, section headers might be nice.
 
@@ -65,10 +65,6 @@ $ python3 app.py
 ---
 
 ## Features
-## Usage (Optional)
-## Documentation (Optional)
-## Tests (Optional)
-
 - Going into more detail on code and technologies used
 - I utilized this nifty <a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet" target="_blank">Markdown Cheatsheet</a> for this sample `README`.
 
@@ -106,8 +102,6 @@ $ python3 app.py
 
 
 ---
-
-## FAQ
 
 ## Support
 
