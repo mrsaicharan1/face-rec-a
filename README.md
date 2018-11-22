@@ -106,7 +106,7 @@ $ python3 app.py
 
 ### Step 3
 
-- 🔃 Create a new pull request using <a href="https://github.com/joanaz/HireDot2/compare/" target="_blank">`https://github.com/joanaz/HireDot2/compare/`</a>.
+- 🔃 Create a new pull request using <a href="https://github.com/mrsaicharan1/face-rec-a/compare/" target="_blank">`https://github.com/mrsaicharan1/face-rec-a/compare/`</a>.
 
 ---
 
@@ -129,22 +129,13 @@ Reach out to me at one of the following places!
 
 - Website at <a href="http://freeflo.tech" target="_blank">`https://freeflo.tech`</a>
 - Twitter at <a href="http://twitter.com/reddy_reddy1" target="_blank">`@reddy_reddy1`</a>
-- Insert more social links here.
 
 ---
 
-## Donations (Optional)
-
-- You could include a <a href="https://cdn.rawgit.com/gratipay/gratipay-badge/2.3.0/dist/gratipay.png" target="_blank">Gratipay</a> link as well.
-
-[![Support via Gratipay](https://cdn.rawgit.com/gratipay/gratipay-badge/2.3.0/dist/gratipay.png)](https://gratipay.com/fvcproductions/)
-
-
----
 
 ## License
 
 [![License](http://img.shields.io/:license-mit-blue.svg?style=flat-square)](http://badges.mit-license.org)
 
 - **[MIT license](http://opensource.org/licenses/mit-license.php)**
-- Copyright 2015 © <a href="http://fvcproductions.com" target="_blank">FVCproductions</a>.
+- Copyright 2018 © <a href="http://freeflo.tech" target="_blank">Freeflo</a>.
