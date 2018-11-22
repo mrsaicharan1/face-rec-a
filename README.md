@@ -1,6 +1,5 @@
 <a href="https://github.com/mrsaicharan1/face-rec-a/blob/master/icon-face-rec.svg"><img src="https://github.com/mrsaicharan1/face-rec-a/blob/master/icon-face-rec.svg" alt="FaceAttendance"></a>
 
-<!-- [![FVCproductions](https://avatars1.githubusercontent.com/u/4284691?v=3&s=200)](http://fvcproductions.com) -->
 
 # Face-Attendance
 
@@ -12,10 +11,13 @@
 - issues (waffle.io maybe)
 - devDependencies
 - coverage(TBA)
-- downloads
-- gitter chat
 - license
 
+Technologies include:
+- Keras
+- Tensorflow
+- Flask
+- MongoDB
 ## Table of Contents (Optional)
 
 > If you're `README` has a lot of info, section headers might be nice.
@@ -29,22 +31,6 @@
 - [License](#license)
 
 
----
-
-## Example (Optional)
-
-```javascript
-// code away!
-
-let generateProject = project => {
-  let code = [];
-  for (let js = 0; js < project.length; js++) {
-    code.push(js);
-  }
-};
-```
-
----
 
 ## Installation
 
