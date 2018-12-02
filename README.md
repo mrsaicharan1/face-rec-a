@@ -5,14 +5,6 @@
 
 > An attendance management system using state-of-the-art face detection and recognition algorithms. This system of attendance tracking helps alleviate major grievances in the present system such as unnecessary time consumption and proxies.
 
-**Badges will go here**
-
-- build status(TBA)
-- issues (waffle.io maybe)
-- devDependencies
-- coverage(TBA)
-- license
-
 Technologies include:
 - Keras
 - Tensorflow
@@ -20,7 +12,6 @@ Technologies include:
 - MongoDB
 ## Table of Contents 
 
-> If you're `README` has a lot of info, section headers might be nice.
 
 - [Installation](#installation)
 - [Features](#features)
